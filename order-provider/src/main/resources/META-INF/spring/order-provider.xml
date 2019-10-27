@@ -12,29 +12,33 @@
     <!--当前项目在整个分布式项目里面的唯一名称-->
     <dubbo:application name="order" owner="NO"/>
 
-    <!--dubbo所提供的服务对应的注册中心-->
+    <!--dubbo所提供的服务对应的注册中心，不使用注册中心时消费端直接通过url属性进行调用-->
     <!--<dubbo:registry address="N/A"/>-->
     <!--支持多注册中心-->
-    <!--register为true时不会注册到注册中心（在开发版本时），只订阅注册中心-->
-    <!--subscribe为false时不订阅注册中心（多注册中心时），只注册到注册中心-->
-    <dubbo:registry id="center" address="zookeeper://192.168.43.99:2181?backup=192.168.43.66:2181,192.168.43.88:2181" register="true" subscribe="true"/>
+    <!--register为true时不会注册到注册中心（在开发版本时），只订阅注册中心（只享受服务）-->
+    <!--subscribe为false时不订阅注册中心（多注册中心时），只注册到注册中心（只提供服务）-->
+    <!--file属性指定服务的url在本地的缓存路径，但注册中不可用时会使用它-->
+    <dubbo:registry id="center" file="D:/MyDevelopTools/IDEA/cache/dubbo.cache" address="zookeeper://192.168.43.99:2181?backup=192.168.43.66:2181,192.168.43.88:2181" register="true" subscribe="true"/>
 
     <!--当前服务所使用的协议和通信端口-->
     <!--dubbo支持多种通信协议（需要引入对应的jar包），例如：dubbo、hessian、RMI、http...-->
-    <!--主机绑定，即指定服务发布之后所在IP地址（针对多IP主机）-->
-    <dubbo:protocol name="dubbo" port="20880" host="192.168.43.148"/>
+    <!--host进行主机绑定，即指定服务发布之后所在IP地址（针对多IP主机）-->
+    <dubbo:protocol name="dubbo" port="20880" host="192.168.43.46"/>
 
     <!--提供的服务(接口)-->
     <!--protocol指定service所使用通信协议-->
     <!--支持多版本（方便接口的升级）-->
     <!--使用version属性指定当前接口使用的版本-->
     <!--loadbalance属性设定负载均衡时的策略，有随机（默认）、轮询、最小活跃响应数、一致性-->
-    <!--timeout指定调用超时时间-->
+    <!--timeout指定调用超时时间(默认1000ms)，调用超时后消费端会重新发起调用请求（默认三次）-->
     <!--cluster属性指定集群容错策略，有：切换连接、快速失败、失败安全、失败自动恢复、并行调用集群中多个服务节点(不常用)、广播调用所有节点-->
     <!--retrie属性指定集群出错时重试连接的次数-->
-    <dubbo:service interface="com.huangdeyi.dubbo.OrderServiceApi" version="1.0" ref="order-provider" protocol="dubbo" registry="center" loadbalance="random"/>
+    <!--<dubbo:service interface="com.huangdeyi.dubbo.OrderServiceApi" version="1.0" ref="order-provider" protocol="dubbo" registry="center" loadbalance="random"/>
 
-    <dubbo:service interface="com.huangdeyi.dubbo.OrderServiceApi" version="2.0" ref="order-provider2" timeout="2000" cluster="failfast" retries="4"/>
+    <dubbo:service interface="com.huangdeyi.dubbo.OrderServiceApi" version="2.0" ref="order-provider2" timeout="2000" cluster="failfast" retries="4"/>-->
+
+    <dubbo:service interface="com.huangdeyi.dubbo.OrderServiceApi" version="1.0" ref="order-provider" protocol="dubbo"/>
+    <dubbo:service interface="com.huangdeyi.dubbo.OrderServiceApi" version="2.0" ref="order-provider2"/>
 
     <!--真正提供服务的接口实现类-->
     <bean id="order-provider" class="com.huangdeyi.dubbo.OrderServiceProvider"/>
