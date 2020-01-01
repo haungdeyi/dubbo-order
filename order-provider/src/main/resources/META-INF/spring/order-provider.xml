@@ -15,9 +15,9 @@
     <!--dubbo所提供的服务对应的注册中心，不使用注册中心时消费端直接通过url属性进行调用-->
     <!--<dubbo:registry address="N/A"/>-->
     <!--支持多注册中心-->
-    <!--register为true时不会注册到注册中心（在开发版本时），只订阅注册中心（只享受服务）-->
+    <!--register为false时不会注册到注册中心（在开发版本时），只订阅注册中心（只享受服务）-->
     <!--subscribe为false时不订阅注册中心（多注册中心时），只注册到注册中心（只提供服务）-->
-    <!--file属性指定服务的url在本地的缓存路径，但注册中不可用时会使用它-->
+    <!--file属性指定服务的url在本地的缓存路径，当注册中心不可用时会使用它-->
     <dubbo:registry id="center" file="D:/MyDevelopTools/IDEA/cache/dubbo.cache" address="zookeeper://192.168.43.99:2181?backup=192.168.43.66:2181,192.168.43.88:2181" register="true" subscribe="true"/>
 
     <!--当前服务所使用的协议和通信端口-->
