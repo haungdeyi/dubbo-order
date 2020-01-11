@@ -18,12 +18,12 @@
     <!--register为false时不会注册到注册中心（在开发版本时），只订阅注册中心（只享受服务）-->
     <!--subscribe为false时不订阅注册中心（多注册中心时），只注册到注册中心（只提供服务）-->
     <!--file属性指定服务的url在本地的缓存路径，当注册中心不可用时会使用它-->
-    <dubbo:registry id="center" file="D:/MyDevelopTools/IDEA/cache/dubbo.cache" address="zookeeper://192.168.43.99:2181?backup=192.168.43.66:2181,192.168.43.88:2181" register="true" subscribe="true"/>
+    <!--<dubbo:registry id="center" address="zookeeper://192.168.43.99:2181?backup=192.168.43.66:2181,192.168.43.88:2181" register="true" subscribe="true" file="D:/MyDevelopTools/IDEA/cache/dubbo.cache"/>-->
 
     <!--当前服务所使用的协议和通信端口-->
     <!--dubbo支持多种通信协议（需要引入对应的jar包），例如：dubbo、hessian、RMI、http...-->
     <!--host进行主机绑定，即指定服务发布之后所在IP地址（针对多IP主机）-->
-    <dubbo:protocol name="dubbo" port="20880" host="192.168.43.46"/>
+    <!--<dubbo:protocol name="dubbo" port="20880" host="192.168.43.66"/>-->
 
     <!--提供的服务(接口)-->
     <!--protocol指定service所使用通信协议-->
