@@ -12,6 +12,9 @@
     <!--当前项目在整个分布式项目里面的唯一名称-->
     <dubbo:application name="order" owner="NO"/>
 
+    <!--配置监控中心-->
+    <!--<dubbo:monitor protocol="registry"/>-->
+
     <!--dubbo所提供的服务对应的注册中心，不使用注册中心时消费端直接通过url属性进行调用-->
     <!--<dubbo:registry address="N/A"/>-->
     <!--支持多注册中心-->
@@ -30,12 +33,12 @@
     <!--支持多版本（方便接口的升级）-->
     <!--使用version属性指定当前接口使用的版本-->
     <!--loadbalance属性设定负载均衡时的策略，有随机（默认）、轮询、最小活跃响应数、一致性-->
-    <!--timeout指定调用超时时间(默认1000ms)，调用超时后消费端会重新发起调用请求（默认三次）-->
-    <!--cluster属性指定集群容错策略，有：切换连接、快速失败、失败安全、失败自动恢复、并行调用集群中多个服务节点(不常用)、广播调用所有节点-->
+    <!--timeout指定调用超时时间(默认1000ms)，调用超时后消费端会根据集群容错策略重新发起调用请求（默认2次，总共3次）-->
+    <!--cluster属性指定集群容错策略，有：切换连接（默认）、快速失败、失败安全、失败自动恢复、并行调用集群中多个服务节点(不常用)、广播调用所有节点-->
     <!--retrie属性指定集群出错时重试连接的次数-->
     <!--<dubbo:service interface="com.huangdeyi.dubbo.OrderServiceApi" version="1.0" ref="order-provider" protocol="dubbo" registry="center" loadbalance="random"/>
 
-    <dubbo:service interface="com.huangdeyi.dubbo.OrderServiceApi" version="2.0" ref="order-provider2" timeout="2000" cluster="failfast" retries="4"/>-->
+        <dubbo:service interface="com.huangdeyi.dubbo.OrderServiceApi" version="2.0" ref="order-provider2" timeout="2000" cluster="failfast" retries="4"/>-->
 
     <dubbo:service interface="com.huangdeyi.dubbo.OrderServiceApi" version="1.0" ref="order-provider" protocol="dubbo"/>
     <dubbo:service interface="com.huangdeyi.dubbo.OrderServiceApi" version="2.0" ref="order-provider2"/>
